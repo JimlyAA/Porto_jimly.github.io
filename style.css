@@ -1,0 +1,611 @@
+/* Variabel Warna dan Ukuran (Skema Warna yang Direkomendasikan) */
+:root {
+    --primary-color: #FFFFFF; /* Putih Bersih - Untuk background umum, navbar, dan teks di elemen gelap */
+    --main-accent-blue: #005F73; /* Teal Laut Dalam - Untuk judul utama, tombol, footer, dan hover teks navbar */
+    --dark-text-color: #34495E; /* Abu-abu Arang Lembut - Untuk teks paragraf, heading sekunder, dan TEKS NAVBAR */
+    --light-background-grey: #F8F8F8; /* Abu-abu Dingin Sangat Muda - Untuk background kotak di "Tentang Saya" */
+    --subtle-background-grey: #6C757D; /* Warna ini tidak dipakai untuk background section lagi, tapi bisa untuk border atau elemen lain jika mau */
+
+    --border-radius: 8px;
+    --padding-section: 80px;
+    --gap-content: 40px;
+    --navbar-height: 70px;
+}
+
+/* Reset CSS Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Untuk animasi smooth scroll antar bagian */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-text-color); /* Teks default body menggunakan abu-abu arang */
+    background-color: var(--primary-color);
+    overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+    width: 100%;
+    background-color: var(--primary-color); /* Navbar menjadi putih */
+    color: var(--dark-text-color); /* Warna teks default navbar menjadi abu-abu arang */
+    padding: 15px 0;
+    position: fixed; /* Navbar tetap di atas saat scroll */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Pastikan navbar di atas elemen lain */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Bayangan tetap agar terlihat menonjol dari body */
+}
+
+.navbar .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Judul di kiri, navigasi di kanan */
+    align-items: center;
+}
+
+/* Styling untuk judul situs di navbar */
+.site-title a {
+    color: var(--dark-text-color); /* Judul situs menjadi abu-abu arang */
+    text-decoration: none;
+    font-size: 1.6em;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.site-title a:hover {
+    color: var(--main-accent-blue); /* Hover warna judul menjadi teal */
+}
+
+/* Hamburger Menu Icon Styling (untuk mobile) */
+.hamburger {
+    display: none; /* Sembunyikan secara default di desktop */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    z-index: 1001; /* Pastikan di atas navbar agar bisa diklik */
+}
+
+.hamburger .bar {
+    /* --- PERBAIKAN UNTUK VISIBILITAS HAMBURGER --- */
+    display: block; /* Penting: agar width dan height berfungsi */
+    width: 100%; /* Lebar bar mengikuti lebar hamburger (30px) */
+    height: 3px; /* Tinggi setiap bar */
+    background-color: var(--main-accent-blue); /* Mengubah warna batang hamburger menjadi teal agar jelas terlihat */
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efek X saat hamburger aktif */
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0; /* Sembunyikan bar tengah */
+}
+
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Navigasi Utama */
+#nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+#nav-menu ul li a {
+    color: var(--dark-text-color); /* Link navigasi menjadi abu-abu arang */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em; /* Ukuran font lebih kecil */
+    transition: color 0.3s ease;
+}
+
+#nav-menu ul li a:hover {
+    color: var(--main-accent-blue); /* Hover warna link navigasi menjadi teal */
+}
+
+/* --- Section Content Styling (Bagian Umum) --- */
+.section-content {
+    min-height: 100vh; /* Tinggi minimal setiap bagian setidaknya satu viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--padding-section) 20px;
+    background-color: var(--primary-color); /* Default background putih */
+    /* Padding atas untuk menghindari tertutup navbar. Tambahan +20px agar ada sedikit ruang ekstra */
+    padding-top: calc(var(--padding-section) + var(--navbar-height) + 20px);
+    padding-bottom: var(--padding-section); /* Pastikan ada padding di bawah juga */
+
+    /* Animasi Fade-in saat muncul di viewport (diatur oleh JS pada kelas .visible) */
+    opacity: 0; /* Awalnya tersembunyi */
+    transform: translateY(40px); /* Awalnya sedikit di bawah */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* Durasi animasi */
+}
+
+.section-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Styling Khusus untuk Latar Belakang Bagian Tentang Saya --- */
+#about .content-wrapper {
+    background-color: var(--light-background-grey); /* Abu-abu muda dari variabel */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Styling Khusus untuk Latar Belakang Bagian Pendidikan (Dikembalikan ke putih) --- */
+#education {
+    background-color: var(--primary-color); /* Pastikan ini kembali ke putih */
+}
+
+/* Wrapper untuk konten utama (Tentang Saya, Pendidikan) */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    gap: var(--gap-content);
+    background-color: var(--primary-color); /* Default background content-wrapper putih */
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Bayangan default untuk content-wrapper */
+}
+
+/* Penataan konten teks umum (digunakan di About & Education text-content) */
+.text-content {
+    flex: 1;
+    min-width: 50%;
+    max-width: 60%;
+    display: flex; /* Menjadikan text-content flex container */
+    flex-direction: column; /* Mengatur item-item di dalamnya secara vertikal */
+    align-items: flex-start; /* Mengatur item ke kiri */
+}
+
+.text-content h1 {
+    font-size: 3em;
+    color: var(--main-accent-blue); /* Heading utama menggunakan teal */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.text-content h2 {
+    font-size: 2.2em;
+    color: var(--main-accent-blue); /* Heading sekunder menggunakan teal */
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.text-content h3 {
+    font-size: 1.5em;
+    color: var(--dark-text-color); /* Sub-heading menggunakan abu-abu arang */
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Penyesuaian warna teks untuk section education (KEMBALIKAN KE DARK TEXT) */
+#education .text-content h2,
+#education .text-content h3,
+#education .text-content p,
+#education .text-content ul li {
+    color: var(--dark-text-color); /* KEMBALIKAN KE ABU-ABU ARANG */
+}
+#education .text-content strong {
+    color: var(--dark-text-color); /* KEMBALIKAN KE ABU-ABU ARANG */
+}
+
+
+.text-content p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: var(--dark-text-color); /* Paragraf umum menggunakan abu-abu arang */
+}
+
+.text-content ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.text-content ul li {
+    margin-bottom: 8px;
+    color: var(--dark-text-color); /* List item umum menggunakan abu-abu arang */
+}
+
+/* Styling untuk Tombol Unduh CV */
+.btn {
+    display: inline-block;
+    background-color: var(--main-accent-blue); /* Tombol menggunakan teal utama */
+    color: var(--primary-color); /* Teks tombol putih */
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #004d5b; /* Warna teal sedikit lebih gelap saat hover */
+    transform: translateY(-2px);
+}
+
+/* Penataan gambar umum */
+.image-content {
+    flex: 1;
+    min-width: 40%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.image-content img {
+    max-width: 75%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.image-content img.small-img {
+    max-width: 70%;
+}
+
+/* --- PROJECT CARD LAYOUT STYLES (Pengalaman Akademik & Non-Akademik) --- */
+.projects-section {
+    /* Padding sudah diatur di .section-content */
+    align-items: flex-start; /* Konten dimulai dari atas section */
+}
+
+.projects-section .container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center; /* Untuk menengahkan judul H2 */
+}
+
+.projects-section h2 {
+    margin-bottom: 50px; /* Jarak antara judul bagian dan grid proyek */
+    color: var(--main-accent-blue); /* Judul bagian proyek menggunakan teal utama */
+    font-size: 2.5em;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 2 kolom di desktop */
+    gap: 40px; /* Jarak antar kartu */
+    justify-content: center; /* Tengahkan grid jika ada sisa ruang */
+    align-items: stretch; /* Pastikan semua kartu memiliki tinggi yang sama */
+}
+
+.project-card {
+    background-color: var(--primary-color); /* Background kartu putih */
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Bayangan kartu */
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    /* Animasi default untuk kartu proyek (akan di-override oleh JS untuk stagger effect jika perlu) */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.project-card.visible { /* Ketika kartu terlihat */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px; /* Tinggi gambar yang konsisten di kartu */
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.project-card h3 {
+    font-size: 1.4em;
+    color: var(--main-accent-blue); /* Judul kartu menggunakan teal */
+    margin: 20px 20px 10px 20px;
+    font-weight: 600;
+}
+
+.project-card p {
+    font-size: 0.95em;
+    color: var(--dark-text-color); /* Teks paragraf di kartu menggunakan abu-abu arang */
+    margin: 0 20px 15px 20px;
+}
+
+.project-card p:last-of-type {
+    margin-bottom: 20px;
+}
+
+/* --- Footer Styling --- */
+.footer {
+    width: 100%;
+    background-color: var(--main-accent-blue); /* Footer menggunakan teal utama */
+    color: var(--primary-color);
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer p {
+    font-size: 0.95em;
+    margin-bottom: 0;
+}
+
+.footer .social-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer .social-links a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.footer .social-links a:hover {
+    transform: translateY(-3px);
+}
+
+.footer .social-links img {
+    width: 28px;
+    height: 28px;
+    filter: invert(100%); /* Membuat ikon menjadi putih */
+}
+
+/* --- Styling untuk Social Links di Bagian About (Tambahan Baru) --- */
+.social-links-about {
+    display: flex;
+    gap: 20px; /* Jarak antar ikon */
+    margin-top: 20px; /* Jarak dari tombol Unduh CV */
+    align-self: flex-start; /* Agar sejajar dengan konten teks lainnya di flex column */
+    /* Untuk menengahkan ikon jika text-content text-align: center; */
+    /* justify-content: center;  Jika Anda ingin ikon di tengah saat text-content juga di tengah */
+    align-items: center;
+}
+
+.social-links-about a img {
+    width: 35px; /* Ukuran ikon */
+    height: 35px; /* Ukuran ikon */
+    transition: transform 0.3s ease;
+}
+
+.social-links-about a:hover {
+    transform: translateY(-3px);
+}
+
+
+/* --- Responsiveness (Media Queries) --- */
+
+/* Untuk layar tablet dan desktop kecil (kurang dari 992px) */
+@media (max-width: 992px) {
+    /* Navbar: Judul di atas, menu di bawah */
+    .navbar .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .site-title a {
+        font-size: 1.4em;
+        margin-bottom: 5px;
+    }
+
+    .navbar ul {
+        gap: 20px;
+    }
+
+    /* Konten Umum: Stack komponen */
+    .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 30px;
+    }
+
+    .text-content, .image-content {
+        max-width: 100%;
+        min-width: unset;
+    }
+    
+    .text-content {
+        align-items: center; /* Tengahkan konten teks di tablet */
+    }
+
+    .image-content {
+        flex-direction: row; /* Gambar bisa berdampingan di mode tablet */
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .image-content img.small-img {
+        max-width: 45%;
+    }
+    .section-content {
+        padding-top: calc(var(--padding-section) / 2 + var(--navbar-height));
+    }
+
+    /* Proyek Grid: Sesuaikan kolom di tablet */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+    .projects-section h2 {
+        font-size: 2em;
+        margin-bottom: 40px;
+    }
+
+    /* Social Links About: Pastikan di tengah di tablet */
+    .social-links-about {
+        justify-content: center;
+        align-self: center; /* Sesuaikan agar di tengah */
+    }
+}
+
+/* Untuk layar mobile (kurang dari 768px) */
+@media (max-width: 768px) {
+    /* Navbar: Judul di kiri, Hamburger di kanan */
+    .navbar .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    /* Menu Navigasi yang disembunyikan / dibuka */
+    #nav-menu {
+        position: fixed;
+        top: var(--navbar-height); /* Mulai di bawah navbar */
+        left: -100%; /* Sembunyikan menu di luar layar */
+        width: 100%;
+        height: calc(100vh - var(--navbar-height)); /* Tinggi menu sepenuh layar sisa */
+        background-color: var(--main-accent-blue); /* Background menu hamburger saat terbuka menggunakan teal */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: left 0.3s ease-in-out; /* Animasi geser */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #nav-menu.active {
+        left: 0; /* Tampilkan menu saat aktif */
+    }
+
+    #nav-menu ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px; /* Jarak antar item menu vertikal */
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    #nav-menu ul li a {
+        color: var(--primary-color); /* Link di menu hamburger saat terbuka menjadi putih */
+        font-size: 1.3em; /* Perbesar ukuran font di menu mobile */
+        padding: 10px 0;
+        display: block; /* Agar area klik lebih luas */
+    }
+
+    .hamburger {
+        display: flex; /* Tampilkan hamburger di mobile */
+    }
+
+    .site-title a {
+        font-size: 1.5em; /* Sesuaikan ukuran judul di mobile */
+    }
+    
+    /* Konten Umum: Kembali ke stack komponen */
+    .content-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        padding: 25px;
+    }
+
+    .text-content, .image-content {
+        max-width: 100%;
+        min-width: unset;
+    }
+
+    .image-content {
+        flex-direction: column; /* Kembali ke stack di mobile */
+    }
+    .image-content img.small-img {
+        max-width: 70%;
+    }
+    .section-content {
+        padding: 40px 15px; /* Kurangi padding samping */
+        padding-top: calc(40px + var(--navbar-height));
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+    /* Proyek Grid: Satu kolom di mobile */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .project-card img {
+        height: 200px;
+    }
+    .project-card h3 {
+        font-size: 1.3em;
+        margin: 15px 15px 8px 15px;
+    }
+    .project-card p {
+        font-size: 0.9em;
+        margin: 0 15px 12px 15px;
+    }
+    .projects-section h2 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    /* Footer: Sesuaikan padding dan ukuran ikon */
+    .footer {
+        padding: 20px 15px;
+    }
+    .footer p {
+        font-size: 0.9em;
+    }
+    .footer .social-links {
+        gap: 20px;
+    }
+    .footer .social-links img {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Untuk layar ponsel sangat kecil (kurang dari 480px) */
+@media (max-width: 480px) {
+    .text-content h1 {
+        font-size: 2em;
+    }
+    .text-content h2 {
+        font-size: 1.5em;
+    }
+    .text-content h3 {
+        font-size: 1.2em;
+    }
+    .navbar {
+        padding: 10px 0;
+    }
+}
